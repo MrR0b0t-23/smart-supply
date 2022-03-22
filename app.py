@@ -12,7 +12,7 @@ import os
 app = Flask(__name__)
 app.config['DEBUG'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///db.sqlite3"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://uvkukyhdltxaky:c58d5eb2b0196d5d6ea63bf95da9b9800ad656a9f2610ff36f98772318b2bcc8@ec2-44-194-92-192.compute-1.amazonaws.com:5432/ddg2soij34vd15"
 db = SQLAlchemy(app)
      
 class userData(db.Model):
@@ -162,8 +162,6 @@ def logout_page():
     return redirect(url_for('login_page'))
 
 if __name__ == "__main__":
-    if not os.path.exists("db.sqlite3"):
-        db.create_all()
     app.run()
     
     
