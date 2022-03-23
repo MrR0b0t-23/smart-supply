@@ -138,7 +138,7 @@ def variable_page():
     FromLocation_ = request.args.get('FromLocation', default = '000000', type = str)
     ToLocation_ = request.args.get('ToLocation', default = '000000', type = str)
     SupplierId_ = request.args.get('SupplierId', default = '000000', type = str)
-    ShipementWeight_ = request.args.get('SupplierId', default = '000000', type = str)
+    ShipementWeight_ = request.args.get('ShipmentWeight', default = '000000', type = str)
      
     ApiCode_ = str(ApiCode_)
     FromLocation_ = str(FromLocation_)
