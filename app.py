@@ -10,7 +10,6 @@ import datetime
 import os 
 
 app = Flask(__name__)
-app.config['DEBUG'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://uvkukyhdltxaky:c58d5eb2b0196d5d6ea63bf95da9b9800ad656a9f2610ff36f98772318b2bcc8@ec2-44-194-92-192.compute-1.amazonaws.com:5432/ddg2soij34vd15"
 db = SQLAlchemy(app)
@@ -49,8 +48,7 @@ class supplyData(db.Model):
     SupplierId = db.Column(db.String(10), nullable = False)
     ShipmentWeight = db.Column(db.Integer, nullable = False)
     
-    def __init__ (self, DateTime, DeviceId, ShipmentId, FromLocation, ToLocation, SupplierId, ShipmentWeight):
-        self.DateTime = DateTime
+    def __init__ (self, DeviceId, ShipmentId, FromLocation, ToLocation, SupplierId, ShipmentWeight):
         self.DeviceId = DeviceId
         self.ShipmentId = ShipmentId
         self.FromLocation = FromLocation
