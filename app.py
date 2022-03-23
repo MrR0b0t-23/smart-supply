@@ -136,7 +136,7 @@ def variable_page():
     FromLocation_ = request.args.get('FromLocation', default = '000000', type = str)
     ToLocation_ = request.args.get('ToLocation', default = '000000', type = str)
     SupplierId_ = request.args.get('SupplierId', default = '000000', type = str)
-    ShipementWeight_ = request.args.get('ShipmentWeight', default = '000000', type = str)
+    ShipmentWeight_ = request.args.get('ShipmentWeight', default = '000000', type = str)
      
     ApiCode_ = str(ApiCode_)
     DeviceId_ = str(DeviceId_)
@@ -144,7 +144,7 @@ def variable_page():
     FromLocation_ = str(FromLocation_)
     ToLocation_ = str(ToLocation_)
     SupplierId_ = str(SupplierId_)
-    ShipementWeight_  = int(ShipementWeight_)
+    ShipmentWeight_  = int(ShipmentWeight_)
 
     apiResult = apiData.query.filter(apiData.ApiCode.like(ApiCode_)).first()
     if apiResult:
