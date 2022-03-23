@@ -139,9 +139,12 @@ def variable_page():
     ShipementWeight_ = request.args.get('ShipmentWeight', default = '000000', type = str)
      
     ApiCode_ = str(ApiCode_)
+    DeviceId_ = str(DeviceId_)
+    ShipmentId_ = str(ShipmentId_)
     FromLocation_ = str(FromLocation_)
     ToLocation_ = str(ToLocation_)
-    
+    SupplierId_ = str(SupplierId_)
+     
     apiResult = apiData.query.filter(apiData.ApiCode.like(ApiCode_)).first()
     if apiResult:
         print("API AUTHENTICATION SUCCESSFULL, TIME: ", datetime.datetime.now())
