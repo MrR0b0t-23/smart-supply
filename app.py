@@ -153,7 +153,7 @@ def variable_page():
                                   SupplierId = SupplierId_, ShipementWeight = ShipementWeight_)
         db.session.add(supplyResult)
         db.session.commit()
-        return None
+        return redirect(url_for('dashboard_page'))
 
 @app.route('/logout')
 def logout_page(): 
