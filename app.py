@@ -138,13 +138,11 @@ def variable_page():
     FromLocation_ = request.args.get('FromLocation', default = '000000', type = str)
     ToLocation_ = request.args.get('ToLocation', default = '000000', type = str)
     SupplierId_ = request.args.get('SupplierId', default = '000000', type = str)
-    
+    ShipementWeight_ = request.args.get('SupplierId', default = '000000', type = str)
+     
     ApiCode_ = str(ApiCode_)
-    DeviceId_= str(DeviceId_)
-    ShipmentId_ = str(ShipmentId_)
     FromLocation_ = str(FromLocation_)
     ToLocation_ = str(ToLocation_)
-    SupplierId_ = str(SupplierId_)
     
     apiResult = apiData.query.filter(apiData.ApiCode.like(ApiCode_)).first()
     if apiResult:
@@ -152,7 +150,7 @@ def variable_page():
 
         supplyResult = supplyData(DeviceId = DeviceId_, ShipmentId = ShipmentId_,
                                   FromLocation = FromLocation_, ToLocation = ToLocation_,
-                                  SupplierId = SupplierId_)
+                                  SupplierId = SupplierId_, ShipementWeight = ShipementWeight_)
         db.session.add(supplyResult)
         db.session.commit()
         return None
