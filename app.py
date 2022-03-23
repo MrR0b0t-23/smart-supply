@@ -113,7 +113,12 @@ def signup_page():
 
 @app.route('/table')
 def table_page():
-    pass
+    Authentication = request.cookies.get('Authentication')
+    if Authentication == "True":
+        supplyResult = supplyData.query.all()
+        return render_template('table.html', tableData = supplyResult)
+    else:
+        return redirect(url_for('signin_page'))
 
 @app.route('/dashboard')
 def dashboard_page():
