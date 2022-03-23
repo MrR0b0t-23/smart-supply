@@ -130,7 +130,7 @@ def dashboard_page():
     else:
         return redirect(url_for('signin_page'))
 
-@app.route('/variables')
+@app.route('/variables', methods = ['POST', 'GET'])
 def variable_page():
     ApiCode_ = request.args.get('Api', default = '000000', type = str)
     DeviceId_ = request.args.get('DeviceId', default = '000000', type = str)
