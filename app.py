@@ -150,7 +150,7 @@ def variable_page():
 
         supplyResult = supplyData(DeviceId = DeviceId_, ShipmentId = ShipmentId_,
                                   FromLocation = FromLocation_, ToLocation = ToLocation_,
-                                  SupplierId = SupplierId_, ShipementWeight = ShipementWeight_)
+                                  SupplierId = SupplierId_, ShipmentWeight = ShipmentWeight_)
         db.session.add(supplyResult)
         db.session.commit()
         return redirect(url_for('dashboard_page'))
