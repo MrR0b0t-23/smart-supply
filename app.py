@@ -149,13 +149,13 @@ def variable_page():
     apiResult = apiData.query.filter(apiData.ApiCode.like(ApiCode_)).first()
     if apiResult:
         print("API AUTHENTICATION SUCCESSFULL, TIME: ", datetime.datetime.now())
-
+        resp = make_response(redirect(url_for('dashboard_page')), 201)
         supplyResult = supplyData(DeviceId = DeviceId_, ShipmentId = ShipmentId_,
                                   FromLocation = FromLocation_, ToLocation = ToLocation_,
                                   SupplierId = SupplierId_, ShipmentWeight = ShipmentWeight_)
         db.session.add(supplyResult)
         db.session.commit()
-        return redirect(url_for('dashboard_page'))
+        return resp
 
 @app.route('/logout')
 def logout_page(): 
