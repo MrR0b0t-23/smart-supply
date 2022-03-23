@@ -144,7 +144,8 @@ def variable_page():
     FromLocation_ = str(FromLocation_)
     ToLocation_ = str(ToLocation_)
     SupplierId_ = str(SupplierId_)
-     
+    ShipementWeight_  = int(ShipementWeight_)
+
     apiResult = apiData.query.filter(apiData.ApiCode.like(ApiCode_)).first()
     if apiResult:
         print("API AUTHENTICATION SUCCESSFULL, TIME: ", datetime.datetime.now())
