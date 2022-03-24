@@ -123,8 +123,16 @@ def dashboard_page():
     Authentication = request.cookies.get('Authentication')
     if Authentication == "True":
         supplyResult = supplyData.query.all()
-        print(supplyResult[0].Id)
-        return render_template('dashboard.html', tableData = supplyResult)
+        shipment = supplyData.query.count()
+        tot_weight = supplyData.query.with_entities(func.sum(supplyData.ShipmentWeight)).first()[0]
+        frequent_from = db.select([db.func.max(supplyData.FromLocation)]).group_by(supplyData.FromLocation)
+        frequent_from = db.session.execute(frequent_from).first()[0]
+        frequent_to = db.select([db.func.max(supplyData.ToLocation)]).group_by(supplyData.ToLocation)
+        frequent_to = db.session.execute(frequent_to).first()[0]
+        #print(tot_shipment, tot_weight, frequent_from, frequent_to)
+        statData = {'tot_shipment':tot_shipment, "tot_weight": tot_weight, "frequent_from": frequent_from, "frequent_to": frequent_to}
+        return render_template('dashboard.html', tableData = supplyResult, Data = statData)
+ 
     else:
         return redirect(url_for('signin_page'))
 
