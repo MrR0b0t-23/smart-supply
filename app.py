@@ -5,6 +5,7 @@ Created on Tue Mar  8 22:19:32 2022
 @author: Ashwin
 """
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import func
 from flask import Flask, render_template, request,  redirect, url_for, make_response
 import datetime
 import os 
