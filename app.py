@@ -8,6 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
 from flask import Flask, render_template, request,  redirect, url_for, make_response
 import datetime
+from flask_restplus import reqparse, Api, Resource, abort
 import os 
 import json
 
@@ -15,7 +16,8 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://uvkukyhdltxaky:c58d5eb2b0196d5d6ea63bf95da9b9800ad656a9f2610ff36f98772318b2bcc8@ec2-44-194-92-192.compute-1.amazonaws.com:5432/ddg2soij34vd15"
 db = SQLAlchemy(app)
-     
+api = Api(app)
+
 class userData(db.Model):
     __tablename__ = 'User Database'
 
@@ -160,6 +162,8 @@ def dashboard_page():
 
 @app.route('/variables', methods = ['POST', 'GET'])
 def variable_page():
+    @api.response(200, 'Success')
+    @api.response(400, 'Validation Error')
     ApiCode_ = request.args.get('Api', default = '000000', type = str)
     DeviceId_ = request.args.get('DeviceId', default = '000000', type = str)
     ShipmentId_ = request.args.get('ShipmentId', default = '000000', type = str)
@@ -185,7 +189,6 @@ def variable_page():
     apiResult = apiData.query.filter(apiData.ApiCode.like(ApiCode_)).first()
     if apiResult:
           print("API AUTHENTICATION SUCCESSFULL, TIME: ", datetime.datetime.now())
-          resp = 'OK'
           supplyResult = supplyData(DeviceId = DeviceId_, ShipmentId = ShipmentId_,
                                   FromLocation = FromLocation_, ToLocation = ToLocation_,
                                   SupplierId = SupplierId_, ShipmentWeight = ShipmentWeight_)
@@ -196,8 +199,10 @@ def variable_page():
                                   Humidity = Humidity_, Gas = Gas_)
           db.session.add(environmentResult)
           db.session.commit()
-          
-          return {"msg": "POST Successful"}, 201
+          resp = Response(json.dumps('OK'), mimetype='application/json')
+          resp.status_code = 200
+          return resp
+
      #else:
          # return Response( "POST Request Failed", status=403)
           
