@@ -200,8 +200,7 @@ def variable_page():
           return {"msg": "POST Successful"}, 201
      #else:
          # return Response( "POST Request Failed", status=403)
-     return {"msg": "POST Failed"}, 403
-
+          
 @app.route('/logout')
 def logout_page(): 
     Authentication = request.cookies.get('Authentication')
