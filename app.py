@@ -59,7 +59,8 @@ class supplyData(db.Model):
 
 class environmentData(db.Model):
     __tablename__ = 'Environment Database'
-
+    
+    Id = db.Column(db.Integer, primary_key = True)
     DateTime = db.Column(db.DateTime, nullable=False, default= datetime.datetime.utcnow())
     DeviceId = db.Column(db.String(10), nullable = False)
     Temperature = db.Column(db.String(10), nullable = False)
