@@ -82,10 +82,11 @@ def signin_page():
     if request.method == 'POST':
        emailId_ = request.form.get("email")
        password_ = request.form.get("password")
-       print(emailId_, password_)
        resp = make_response(redirect(url_for('dashboard_page')))
        
        if __authLogin__(emailId_, password_):
+          resp.set_cookie('emailId', emailId_)
+          resp.set_cookie('password', password_)
           resp.set_cookie('Authentication', 'True')
           return resp 
       
@@ -122,6 +123,8 @@ def table_page():
 @app.route('/dashboard')
 def dashboard_page():
     Authentication = request.cookies.get('Authentication')
+    emailId_ = request.cookies.get('emailId')
+    password_ = request.cookies.get('password_')
     if Authentication == "True":
         supplyResult = supplyData.query.all()
         tot_shipment = supplyData.query.count()
