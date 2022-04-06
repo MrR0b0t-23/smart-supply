@@ -56,7 +56,22 @@ class supplyData(db.Model):
         self.ToLocation = ToLocation
         self.SupplierId = SupplierId
         self.ShipmentWeight = ShipmentWeight
-        
+
+class environmentData(db.Model):
+    __tablename__ = 'Environment Database'
+
+    DateTime = db.Column(db.DateTime, nullable=False, default= datetime.datetime.utcnow())
+    DeviceId = db.Column(db.String(10), nullable = False)
+    Temperature = db.Column(db.String(10), nullable = False)
+    Humidity = db.Column(db.String(10), nullable = False)
+    Gas = db.Column(db.String(10), nullable = False)
+    
+    def __init__ (self, DeviceId, Temperature, Humidity, Gas):
+        self.DeviceId = DeviceId
+        self.Temperature = Temperature
+        self.Humidity = Humidity
+        self.Gas = Gas
+     
 def __authLogin__(emailId_, password_):
    emailId_ = str(emailId_)
    password_ = str(password_)
@@ -124,7 +139,7 @@ def table_page():
 def dashboard_page():
     Authentication = request.cookies.get('Authentication')
     emailId_ = request.cookies.get('emailId')
-    password_ = request.cookies.get('password_')
+    password_ = request.cookies.get('password')
     if Authentication == "True":
         supplyResult = supplyData.query.all()
         tot_shipment = supplyData.query.count()
@@ -150,7 +165,10 @@ def variable_page():
     ToLocation_ = request.args.get('ToLocation', default = '000000', type = str)
     SupplierId_ = request.args.get('SupplierId', default = '000000', type = str)
     ShipmentWeight_ = request.args.get('ShipmentWeight', default = '000000', type = str)
-     
+    Temperature_ = request.args.get('Temp', default = '000000', type = str)
+    Humidity_ = request.args.get('Humid', default = '000000', type = str)
+    Gas_ = request.args.get('Gas', default = '000000', type = str)
+    
     ApiCode_ = str(ApiCode_)
     DeviceId_ = str(DeviceId_)
     ShipmentId_ = str(ShipmentId_)
@@ -158,6 +176,9 @@ def variable_page():
     ToLocation_ = str(ToLocation_)
     SupplierId_ = str(SupplierId_)
     ShipmentWeight_  = int(ShipmentWeight_)
+    Temperature_ = str(Temperature_)
+    Humidity_ = str(Humidity_)
+    Gas_ = str(Gas_)
 
     apiResult = apiData.query.filter(apiData.ApiCode.like(ApiCode_)).first()
     if apiResult:
@@ -168,6 +189,12 @@ def variable_page():
                                   SupplierId = SupplierId_, ShipmentWeight = ShipmentWeight_)
         db.session.add(supplyResult)
         db.session.commit()
+        
+        environmentResult = environmentData(DeviceId = DeviceId_, Temperature = Temperature_,
+                                  Humidity = Humidity_, Gas = Gas_)
+        db.session.add(environmentResult)
+        db.session.commit()
+          
         return resp
 
 @app.route('/logout')
