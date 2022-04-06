@@ -198,8 +198,8 @@ def variable_page():
           db.session.commit()
           
           return Response( "POST Request Successful", status=200)
-     else:
-          return Response( "POST Request Failed", status=403)
+     #else:
+         # return Response( "POST Request Failed", status=403)
 
 @app.route('/logout')
 def logout_page(): 
