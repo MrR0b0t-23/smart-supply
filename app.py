@@ -197,9 +197,10 @@ def variable_page():
           db.session.add(environmentResult)
           db.session.commit()
           
-          return Response( "POST Request Successful", status=200)
+          return {"msg": "POST Successful"}, 201
      #else:
          # return Response( "POST Request Failed", status=403)
+     return {"msg": "POST Failed"}, 403
 
 @app.route('/logout')
 def logout_page(): 
