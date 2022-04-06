@@ -62,7 +62,7 @@ def __authLogin__(emailId_, password_):
    password_ = str(password_)
    token = userData.query.filter(userData.EmailId.like(emailId_)).filter(userData.Password.like(password_)).first()
    if token:
-      return True
+     return True
    return False
 
 def __geoSpatialPlot__():
@@ -131,7 +131,8 @@ def dashboard_page():
         frequent_to = db.select([db.func.max(supplyData.ToLocation)]).group_by(supplyData.ToLocation)
         frequent_to = db.session.execute(frequent_to).first()[0]
         #print(tot_shipment, tot_weight, frequent_from, frequent_to)
-        statData = {'tot_shipment':tot_shipment, "tot_weight": tot_weight, "frequent_from": frequent_from, "frequent_to": frequent_to}
+        token = userData.query.filter(userData.EmailId.like(emailId_)).filter(userData.Password.like(password_)).first()
+        statData = {'tot_shipment':tot_shipment, "tot_weight": tot_weight, "frequent_from": frequent_from, "frequent_to": frequent_to, 'user': token.Username}          
         return render_template('dashboard.html', tableData = supplyResult, Data = statData)
  
     else:
