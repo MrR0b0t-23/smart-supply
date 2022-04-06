@@ -146,9 +146,9 @@ def dashboard_page():
         supplyResult = supplyData.query.all()
         tot_shipment = supplyData.query.count()
         tot_weight = supplyData.query.with_entities(func.sum(supplyData.ShipmentWeight)).first()[0]
-        frequent_from = db.select([db.func.max(supplyData.FromLocation)]).group_by(supplyData.FromLocation)
+        frequent_from = db.select([db.func.min(supplyData.FromLocation)]).group_by(supplyData.FromLocation)
         frequent_from = db.session.execute(frequent_from).first()[0]
-        frequent_to = db.select([db.func.max(supplyData.ToLocation)]).group_by(supplyData.ToLocation)
+        frequent_to = db.select([db.func.min(supplyData.ToLocation)]).group_by(supplyData.ToLocation)
         frequent_to = db.session.execute(frequent_to).first()[0]
         #print(tot_shipment, tot_weight, frequent_from, frequent_to)
         token = userData.query.filter(userData.EmailId.like(emailId_)).filter(userData.Password.like(password_)).first()
@@ -195,7 +195,7 @@ def variable_page():
                                   Humidity = Humidity_, Gas = Gas_)
           db.session.add(environmentResult)
           db.session.commit()
-          resp = Response(json.dumps('OK'))
+          resp = make_response(json.dumps('OK'))
           resp.status_code = 200
           return resp
 
