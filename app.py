@@ -197,8 +197,8 @@ def variable_page():
         db.session.add(environmentResult)
         db.session.commit()
           
-        return json.dumps({'success':True})
-     return json.dumps({'success':False})
+        return Response( "POST Request Successful", status=200)
+     return Response( "POST Request Failed", status=403)
 
 @app.route('/logout')
 def logout_page(): 
