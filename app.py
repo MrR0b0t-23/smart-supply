@@ -9,6 +9,7 @@ from sqlalchemy import func
 from flask import Flask, render_template, request,  redirect, url_for, make_response
 import datetime
 import os 
+import json
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -196,7 +197,7 @@ def variable_page():
         db.session.add(environmentResult)
         db.session.commit()
           
-        return resp
+        return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
 
 @app.route('/logout')
 def logout_page(): 
