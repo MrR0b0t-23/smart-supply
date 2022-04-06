@@ -184,20 +184,20 @@ def variable_page():
 
     apiResult = apiData.query.filter(apiData.ApiCode.like(ApiCode_)).first()
     if apiResult:
-        print("API AUTHENTICATION SUCCESSFULL, TIME: ", datetime.datetime.now())
-        resp = 'OK'
-        supplyResult = supplyData(DeviceId = DeviceId_, ShipmentId = ShipmentId_,
+          print("API AUTHENTICATION SUCCESSFULL, TIME: ", datetime.datetime.now())
+          resp = 'OK'
+          supplyResult = supplyData(DeviceId = DeviceId_, ShipmentId = ShipmentId_,
                                   FromLocation = FromLocation_, ToLocation = ToLocation_,
                                   SupplierId = SupplierId_, ShipmentWeight = ShipmentWeight_)
-        db.session.add(supplyResult)
-        db.session.commit()
+          db.session.add(supplyResult)
+          db.session.commit()
         
-        environmentResult = environmentData(DeviceId = DeviceId_, Temperature = Temperature_,
+          environmentResult = environmentData(DeviceId = DeviceId_, Temperature = Temperature_,
                                   Humidity = Humidity_, Gas = Gas_)
-        db.session.add(environmentResult)
-        db.session.commit()
+          db.session.add(environmentResult)
+          db.session.commit()
           
-        return Response( "POST Request Successful", status=200)
+          return Response( "POST Request Successful", status=200)
      else:
           return Response( "POST Request Failed", status=403)
 
