@@ -161,9 +161,9 @@ def dashboard_page():
         return redirect(url_for('signin_page'))
 
 @app.route('/variables', methods = ['POST', 'GET'])
+@api.response(200, 'Success')
+@api.response(400, 'Validation Error')
 def variable_page():
-    @api.response(200, 'Success')
-    @api.response(400, 'Validation Error')
     ApiCode_ = request.args.get('Api', default = '000000', type = str)
     DeviceId_ = request.args.get('DeviceId', default = '000000', type = str)
     ShipmentId_ = request.args.get('ShipmentId', default = '000000', type = str)
