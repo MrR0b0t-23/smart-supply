@@ -198,6 +198,7 @@ def variable_page():
         db.session.commit()
           
         return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
+     return json.dumps({'success':False}), 403, {'ContentType':'application/json'}
 
 @app.route('/logout')
 def logout_page(): 
