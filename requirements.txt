@@ -7,6 +7,9 @@ distlib==0.3.0
 filelock==3.0.12
 Flask==1.1.2
 Flask-Login==0.5.0
+numpy==1.8.2
+matplotlib==1.4.2
+pandas==1.14.0
 Flask-Migrate==2.5.3
 Flask-SQLAlchemy==2.4.1
 gunicorn==20.0.4
